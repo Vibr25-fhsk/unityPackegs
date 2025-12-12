@@ -1,0 +1,137 @@
+
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+
+public class playermovement : MonoBehaviour
+{
+    [SerializeField]private float movespeed = 5f;
+    private Rigidbody2D rb;
+    public Sprite jumpAscend;
+    public Sprite jumpDecend;
+    public Sprite jumpApex;
+    public float jumpspeed = 2;
+    private float animspeed;
+    //public Sprite[] spriteindex;
+
+   
+
+
+
+    private SpriteRenderer Fox_spirit;
+    private Vector2 moveInput;
+    Animator anim;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        
+        rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+        
+        
+        anim.SetBool("isruning",false);
+        Fox_spirit = GetComponent<SpriteRenderer>();
+        DontDestroyOnLoad(gameObject);
+        
+    }
+
+
+    // Update is called once per frame
+    void  FixedUpdate()
+    {
+        if(moveInput != Vector2.zero)
+        {
+            rb.linearVelocity = moveInput * movespeed;
+
+        }
+        
+
+        if( rb.linearVelocity.x > 1f)
+        {
+          anim.SetBool("isruning",true);  
+        }
+        if(rb.linearVelocity.x <0f)
+        {
+            anim.SetBool("isruning",false);
+        }
+        
+        
+        if(rb.linearVelocity.x < 0.02f)
+        {
+            Fox_spirit.flipX = true;
+        }
+         if(rb.linearVelocity.x > -0.02f)
+        {
+            Fox_spirit.flipX = false;
+        }
+       
+        /*if( rb.linearVelocity.magnitude > 1f)
+        {
+          anim.SetBool("isruning",true);  
+        }
+        if(rb.linearVelocity.magnitude <0f)
+        {
+            anim.SetBool("isruning",false);
+        }  
+        if(rb.linearVelocityX < 0.02f)
+        {
+            Fox_spirit.flipX = true;
+        }
+         if(rb.linearVelocityX > -0.02f)
+        {
+            Fox_spirit.flipX = false;
+        }
+        */
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(Vector2.up * jumpspeed,ForceMode2D.Impulse );
+        }
+    void jumpanim()
+    {
+        //anim.enabled = false;
+        if(rb.linearVelocity.y >0)
+        {
+            anim.SetTrigger("jumpAscend");  
+            //Fox_spirit.sprite = jumpAscend;
+        }
+        
+        
+        if(rb.linearVelocity.y <0)
+        {
+            anim.SetTrigger("jumpDescend");
+            //Fox_spirit.sprite = jumpDecend;
+        }
+        
+        if(animspeed<=0)
+        {
+                
+        }
+
+    }
+        
+        
+        
+    }
+    public void Move(InputAction.CallbackContext context)
+    {
+        moveInput = context.ReadValue<Vector2>();
+        
+    
+    }
+
+    public void OnCollisionEnter2D(Collision2D other)
+    {
+       if(other.gameObject.tag == "ground")
+        {
+            anim.SetTrigger("jumpLand");
+        }
+
+        /*if(other.gameObject.tag =="portal1")
+        {
+            SceneManager.LoadScene("Level2");
+        }
+        */
+    }  
+
+
+}

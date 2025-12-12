@@ -1,0 +1,18 @@
+using UnityEngine;
+
+public class folowplayer : MonoBehaviour
+{
+    public Transform karakter;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+       //karakter = GameObject.FindGameObjectWithTag("Player");
+       DontDestroyOnLoad(gameObject);
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        
+    }
+}

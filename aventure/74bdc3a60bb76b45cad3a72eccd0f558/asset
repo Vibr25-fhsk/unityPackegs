@@ -1,0 +1,38 @@
+using UnityEngine;
+
+public class Kontroll : MonoBehaviour
+{
+    public Manascript manacunt;
+    public int manaP;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+       
+    }
+
+    private void Awake()
+    {
+        manacunt = GameObject.Find("mana").GetComponent<Manascript>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.tag =="Player")
+        {
+            manacunt.manacounter(manaP);
+            Destroy(gameObject);
+        }
+
+        
+
+
+
+
+    }
+
+}

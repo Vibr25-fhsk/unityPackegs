@@ -1,0 +1,32 @@
+using System;
+using TMPro;
+using UnityEngine;
+
+public class Manascript : MonoBehaviour
+{
+    public float manacunt;
+    public TMP_Text manaP;
+    public Kontroll mana0;
+    public GameObject Manaparticel;
+    
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        //DontDestroyOnLoad(gameObject);
+        manaP.text = 0.ToString();
+        manaP = GameObject.Find("manapoint").GetComponent<TMP_Text>();
+        mana0 = GameObject.Find("Manaorb").GetComponent<Kontroll>();
+    }
+    
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+    public void manacounter(float manacunt)
+    {
+        manaP.text = (Convert.ToInt32(manaP.text) + 1).ToString();
+    }
+
+}
